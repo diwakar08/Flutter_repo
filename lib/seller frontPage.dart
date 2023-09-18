@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-
+import 'apis/orderModel.dart';
 void main() {
   runApp( BankDetailsApp());
 }
 
-class BankDetailsApp extends StatelessWidget {
+class BankDetailsApp extends StatefulWidget {
 
+  @override
+  State<BankDetailsApp> createState() => _BankDetailsAppState();
+}
+
+class _BankDetailsAppState extends State<BankDetailsApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +20,9 @@ class BankDetailsApp extends StatelessWidget {
     );
   }
 }
+
+
+
 
 class sellerFrontPage extends StatefulWidget {
   @override
@@ -426,7 +434,7 @@ class _BankDetailsFormState extends State<sellerFrontPage> {
   }
 
   Widget buildPage3(String s) {
-    final List<Map<String, String>> orders = [
+    final List<Map<String, dynamic>> orders = [
       {
         'name': 'Abhishek',
         'amount': '₹50',
