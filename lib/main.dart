@@ -39,10 +39,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var nameController = TextEditingController();
-  var phoneController = TextEditingController();
-  // List<Order> order = [];
+
   late Order order;
+  late List<Product> product;
   String response1 = "";
   @override
   Widget build(BuildContext context) {
@@ -67,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   void fetchOrders() async {
-    order = await UserApi.fetchOrderData();
+    product = await UserApi.getProducts();
 
     setState(() {
-      response1 = order.orderID;
+      response1 = product[0].productName;
     });
     print(response1);
   }

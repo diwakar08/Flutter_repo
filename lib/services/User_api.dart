@@ -1,10 +1,17 @@
 
-// import 'dart:convert';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:core';
+
+import 'package:flutter/material.dart';
+import '../apis/ProductModel.dart';
 import '../apis/orderModel.dart';
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 class UserApi {
-    
+
+
+  // get all orders API
   static Future fetchOrderData() async {
 
     // const url = "";
@@ -66,16 +73,96 @@ class UserApi {
     "paymentID": "998",
     "paymentStatus": "paid",
     "paymentMode": "online",
-    // "paymentDate": "23-09-2023",
+    "paymentDate": "2023-09-23T15:30:00Z",
     "paymentAmount": 1125.28,
     },
     };
     Order order =  Order.fromJson(json);
     return order;
   }
-  
-  static Future fetchProductData() async {
 
+
+  //create Product API
+  static Future<void> createProduct(Product product) async {
+  final apiUrl = 'https://api/seller/:sellerid/product';
+
+  final Map<String, dynamic> productJson = {
+  "productName": product.productName,
+  "category": product.category,
+  "image": product.image,
+  "description": product.description,
+  "quantityType": product.quantityType,
+  "mrpPrice": product.mrpPrice,
+  "offerPrice": product.offerPrice,
+  "productType": product.productType,
+  };
+  var uri = Uri.parse(apiUrl);
+  try {
+  final response = await http.post(
+  uri,
+  headers: <String, String>{
+  'Content-Type': 'application/json',
+  },
+  body: jsonEncode(productJson),
+  );
+
+  // if (response.statusCode == 201) {
+  // } else {
+  // }
+  } catch (e) {
+  }
   }
 
+
+  static Future<List<Product>> getProducts() async {
+    // final uri = Uri.parse('https://api/seller/:sellerID/products');
+    // final response = await http.get(uri);
+    // final body = response.body;
+    // final json = jsonDecode(body);
+
+    final List<dynamic> productJson = [
+      {
+        "productID": "12345",
+        "productName": "Example Product",
+        "category": "Electronics",
+        "image": ["image_url1", "image_url2"],
+        "description": "This is an example product.",
+        "quantityType": "Pieces",
+        "mrpPrice": 499.99,
+        "offerPrice": 399.99,
+        "productType": "New",
+        "sellerID": "9876",
+        "returnReplacement": {
+          "returnStatus": true,
+          "replacementStatus": false,
+          "returnPeriod": 30,
+          "replacementPeriod": 0,
+        },
+      },
+      {
+        "productID": "12346",
+        "productName": "Example Product1",
+        "category": "Grocery",
+        "image": ["image_url1", "image_url2"],
+        "description": "This is an example product1.",
+        "quantityType": "ml",
+        "mrpPrice": 499.99,
+        "offerPrice": 399.99,
+        "productType": "New1",
+        "sellerID": "9876",
+        "returnReplacement": {
+        "returnStatus": true,
+        "replacementStatus": false,
+        "returnPeriod": 30,
+        "replacementPeriod": 0,
+      },
+      },
+    ];
+    List<Product> product = productJson.map((e) => Product.fromJson(e)).toList();
+    return product;
+  }
+
+
+
 }
+

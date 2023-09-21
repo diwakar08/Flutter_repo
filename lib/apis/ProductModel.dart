@@ -10,11 +10,9 @@ class Product {
   String productType;
   ReturnReplacement returnReplacement;
   String sellerID;
-  DateTime createdAt;
-  DateTime updatedAt;
 
   Product({
-    required this.productID,
+     required this.productID,
     required this.productName,
     required this.category,
     required this.image,
@@ -23,27 +21,23 @@ class Product {
     required this.mrpPrice,
     required this.offerPrice,
     required this.productType,
-    required this.returnReplacement,
+     required this.returnReplacement,
     required this.sellerID,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      productID: json['productID'],
-      productName: json['productName'],
-      category: json['category'],
-      image: List<String>.from(json['image']),
-      description: json['description'],
-      quantityType: json['quantityType'],
-      mrpPrice: json['mrpPrice'].toDouble(),
-      offerPrice: json['offerPrice'].toDouble(),
-      productType: json['productType'],
+      productID: json['productID'] ?? '',
+      productName: json['productName'] ?? '',
+      category: json['category'] ?? '',
+      image: List<String>.from(json['image']) ?? [],
+      description: json['description'] ?? '',
+      quantityType: json['quantityType'] ?? '',
+      mrpPrice: json['mrpPrice'].toDouble() ?? 0,
+      offerPrice: json['offerPrice'].toDouble() ?? 0,
+      productType: json['productType'] ?? '',
       returnReplacement: ReturnReplacement.fromJson(json['returnReplacement']),
-      sellerID: json['sellerID'],
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
+      sellerID: json['sellerID'] ?? '',
     );
   }
 }
@@ -56,18 +50,27 @@ class ReturnReplacement {
   int replacementPeriod;
 
   ReturnReplacement({
-    required this.returnStatus,
-    required this.replacementStatus,
-    required this.returnPeriod,
-    required this.replacementPeriod,
+     required this.returnStatus,
+     required this.replacementStatus,
+     required this.returnPeriod,
+     required this.replacementPeriod,
   });
 
   factory ReturnReplacement.fromJson(Map<String, dynamic> json) {
+    print(json);
+    if(json==null) {
+      return ReturnReplacement(
+        returnStatus: false,
+        replacementStatus: false,
+        returnPeriod: 0,
+        replacementPeriod: 0,
+      );
+    }
     return ReturnReplacement(
-      returnStatus: json['return']['type'],
-      replacementStatus: json['replacement']['type'],
-      returnPeriod: json['return']['returnPeriod'],
-      replacementPeriod: json['replacement']['replacementPeriod'],
+      returnStatus: json['returnStatus'] ?? false,
+      replacementStatus: json['replacementStatus'] ?? false,
+      returnPeriod: json['returnPeriod'] ?? 0,
+      replacementPeriod: json['replacementPeriod'] ?? 0,
     );
   }
 }
