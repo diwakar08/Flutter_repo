@@ -7,12 +7,38 @@ import 'package:flutter/material.dart';
 import '../apis/ProductModel.dart';
 import '../apis/orderModel.dart';
 import 'package:http/http.dart' as http;
+import '../apis/sellerModel.dart';
 
 class UserApi {
 
+  //updateSeller
+  static Future updateSeller(UpdateSeller updateSeller) async {
+  
+  final apiUrl = 'https://api/seller/:sellerid/product';
+
+  Map<String, dynamic> json = updateSeller.toJson();
+  var uri = Uri.parse(apiUrl);
+  try {
+  final response = await http.post(
+  uri,
+  headers: <String, String>{
+  'Content-Type': 'application/json',
+  },
+  body: jsonEncode(updateSeller),
+  );
+
+  // if (response.statusCode == 201) {
+  // } else {
+  // }
+  } catch (e) {
+  }
+
+  }
+
+
 
   // get all orders API
-  static Future fetchOrderData() async {
+  static Future getOrders() async {
 
     // const url = "";
     // final uri = Uri.parse(url);
@@ -114,6 +140,41 @@ class UserApi {
   }
 
 
+
+  //update Product AP
+  static Future<void> updateProduct(Product product) async {
+  final apiUrl = 'https://api/seller/:sellerid/product';
+
+  final Map<String, dynamic> productJson = {
+  "productName": product.productName,
+  "category": product.category,
+  "image": product.image,
+  "description": product.description,
+  "quantityType": product.quantityType,
+  "mrpPrice": product.mrpPrice,
+  "offerPrice": product.offerPrice,
+  "productType": product.productType,
+  };
+  var uri = Uri.parse(apiUrl);
+  try {
+  final response = await http.put(
+  uri,
+  headers: <String, String>{
+  'Content-Type': 'application/json',
+  },
+  body: jsonEncode(productJson),
+  );
+
+  // if (response.statusCode == 201) {
+  // } else {
+  // }
+  } catch (e) {
+  }
+  }
+
+
+
+ //get products
   static Future<List<Product>> getProducts() async {
     // final uri = Uri.parse('https://api/seller/:sellerID/products');
     // final response = await http.get(uri);
@@ -156,6 +217,24 @@ class UserApi {
         "returnPeriod": 30,
         "replacementPeriod": 0,
       },
+      },
+      {
+        "productID": "12346",
+        "productName": "Example Product2",
+        "category": "Grocery",
+        "image": ["image_url1", "image_url2"],
+        "description": "This is an example product1.",
+        "quantityType": "ml",
+        "mrpPrice": 499.99,
+        "offerPrice": 399.99,
+        "productType": "New1",
+        "sellerID": "9876",
+        "returnReplacement": {
+          "returnStatus": true,
+          "replacementStatus": false,
+          "returnPeriod": 30,
+          "replacementPeriod": 0,
+        },
       },
     ];
     List<Product> product = productJson.map((e) => Product.fromJson(e)).toList();

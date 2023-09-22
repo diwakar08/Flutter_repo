@@ -40,12 +40,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  late Order order;
-  late List<Product> product;
-  String response1 = "";
+
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       appBar: AppBar(
@@ -54,23 +51,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
         title: const Text("flutter container"),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: fetchOrders,
-            child: const Text('fetch'),
-          ),
-          Text('${response1}aabbccdd')
-        ],
+      body: FutureBuilder<List<Product>>(
+        future: fetchOrders(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final List<Product>? data = snapshot.data;
+
+            return ListView.builder(
+              itemCount: data?.length,
+              itemBuilder: (context, index) {
+                final prod = data?[index];
+                return ListTile(
+                  title: Text(prod!.productName),
+                );
+              },
+            );
+          }
+        },
       )
     );
   }
-  void fetchOrders() async {
-    product = await UserApi.getProducts();
+  Future<List<Product>> fetchOrders() async {
+    final data = await UserApi.getProducts();
 
-    setState(() {
-      response1 = product[0].productName;
-    });
-    print(response1);
+    return data;
   }
 }
