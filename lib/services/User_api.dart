@@ -39,7 +39,8 @@ class UserApi {
         "pincode": "12345",
         "location": "Latitude: 12.345, Longitude: 67.890"
       },
-      "shopTimings": "Mon-Fri: 9:00 AM - 6:00 PM",
+      "shopOpeningTime": "9:00 AM",
+      "shopClosingTime": "6:00 PM",
       "panCard": {
         "panNo": "ABCDE1234F",
         "panImage": "pan_card_image_url"
