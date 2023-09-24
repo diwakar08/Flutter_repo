@@ -37,33 +37,52 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
-  late Seller seller;
+  late Future<Seller> sellerFuture;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-    fetchSeller();
+    // Initialize the future in initState
+    sellerFuture = fetchSeller();
   }
 
-  Future <void> fetchSeller() async {
-    seller = await UserApi.getSeller();
-
+  Future<Seller> fetchSeller() async {
+    final seller = await UserApi.getSeller();
+    return seller;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
         title: const Text("flutter container"),
       ),
-      body: Text("sellerName: ${seller.address?.city}")
+      body: FutureBuilder<Seller>(
+        future: sellerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // While the future is still running, show a loading indicator
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // If there's an error, display an error message
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // Once the future is complete, display the seller's data
+            final seller = snapshot.data;
+
+            if (seller == null) {
+              // Handle the case where seller is null (if needed)
+              return Center(child: Text('Seller data is null.'));
+            }
+
+            // Display seller's data here
+            return Text("sellerName: ${seller.address!.city!}");
+          }
+        },
+      ),
     );
   }
-
 }
+
+

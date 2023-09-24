@@ -22,6 +22,8 @@ class UserApi {
       "phone": "1234567890",
       "businessType": "Retail",
       "shopName": "John's Store",
+      "shopOpeningTime": "2023-09-18T08:00:00Z",
+      "shopClosingTime": "2023-09-18T08:00:00Z",
       "landlineNumber": "4875834759",
       "gstin": {
         "gstinNo": "GSTIN123456",
@@ -39,8 +41,6 @@ class UserApi {
         "pincode": "12345",
         "location": "Latitude: 12.345, Longitude: 67.890"
       },
-      "shopOpeningTime": "9:00 AM",
-      "shopClosingTime": "6:00 PM",
       "panCard": {
         "panNo": "ABCDE1234F",
         "panImage": "pan_card_image_url"
