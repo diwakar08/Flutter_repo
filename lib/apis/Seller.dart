@@ -4,10 +4,14 @@ class Seller {
   String? phone;
   String? businessType;
   String? shopName;
+  String? landlineNumber;
   GSTIN? gstin;
+  FSSAI? fssai;
   String? photo;
   Address? address;
-  String? shopTimings;
+  DateTime? shopOpeningTime;
+  DateTime? shopClosingTime;
+
   PanCard? panCard;
   BankDetails? bankDetails;
   double? marginCharged;
@@ -21,10 +25,12 @@ class Seller {
     this.phone,
     this.businessType,
     this.shopName,
+    this.landlineNumber,
     this.gstin,
     this.photo,
     this.address,
-    this.shopTimings,
+    this.shopClosingTime,
+    this.shopOpeningTime,
     this.panCard,
     this.bankDetails,
     this.marginCharged,
@@ -40,16 +46,33 @@ class Seller {
       phone: json['phone'],
       businessType: json['businessType'],
       shopName: json['shopName'],
+      landlineNumber: json['landlineNumber'],
       gstin: GSTIN.fromJson(json['gstin']),
       photo: json['photo'],
       address: Address.fromJson(json['address']),
-      shopTimings: json['shopTimings'],
+      shopOpeningTime: json['shopOpeningTime'],
+      shopClosingTime: json['shopClosingTime'],
       panCard: PanCard.fromJson(json['panCard']),
       bankDetails: BankDetails.fromJson(json['bankDetails']),
       marginCharged: json['marginCharged'].toDouble(),
       shopCategory: json['shopCategory'],
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
+    );
+  }
+}
+
+class FSSAI {
+  String? licenseNumber;
+  String? fssaiImage;
+  FSSAI({
+    this.licenseNumber,
+    this.fssaiImage,
+  });
+  factory FSSAI.fromJson(Map<String, dynamic> json) {
+    return FSSAI(
+      licenseNumber: json['licenseNumber'],
+      fssaiImage: json['fssaiImage'],
     );
   }
 }
@@ -72,16 +95,14 @@ class GSTIN {
 }
 
 class Address {
-  String? addressLine1;
-  String? addressLine2;
+  String? addressOfShop;
   String? city;
   String? state;
   String? pincode;
   String? location;
 
   Address({
-    this.addressLine1,
-    this.addressLine2,
+    this.addressOfShop,
     this.city,
     this.state,
     this.pincode,
@@ -90,8 +111,7 @@ class Address {
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      addressLine1: json['addressLine1'],
-      addressLine2: json['addressLine2'],
+      addressOfShop: json['addressLine2'],
       city: json['city'],
       state: json['state'],
       pincode: json['pincode'],

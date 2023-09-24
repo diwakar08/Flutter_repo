@@ -1,9 +1,7 @@
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:flutter/material.dart';
 import '../apis/ProductModel.dart';
 import '../apis/Seller.dart';
 import '../apis/orderModel.dart';
@@ -12,25 +10,30 @@ import '../apis/sellerModel.dart';
 
 class UserApi {
 
+  static Future postSeller() async {
+
+  }
+
   //get seller data
   static Future getSeller() async {
-
-
-
     final json = {
       "ownerName": "John Doe",
       "password": "hashed_password_here",
       "phone": "1234567890",
       "businessType": "Retail",
       "shopName": "John's Store",
+      "landlineNumber": "4875834759",
       "gstin": {
         "gstinNo": "GSTIN123456",
         "gstinImage": "gstin_image_url"
       },
+      "fssai": {
+        "licenseNumber": "FSSAI123456",
+        "fssaiImage": "fssai_image_url"
+      },
       "photo": "seller_photo_url",
       "address": {
-        "addressLine1": "123 Main Street",
-        "addressLine2": "Apt 456",
+        "addressOfShop": "Apt 456",
         "city": "Example City",
         "state": "Example State",
         "pincode": "12345",
@@ -55,10 +58,7 @@ class UserApi {
     };
   Seller seller = Seller.fromJson(json);
   return seller;
-
   }
-
-
 
   //updateSeller
   static Future updateSeller(UpdateSeller updateSeller) async {
@@ -83,8 +83,6 @@ class UserApi {
   }
 
   }
-
-
 
   // get all orders API
   static Future getOrders() async {
@@ -156,7 +154,6 @@ class UserApi {
     return order;
   }
 
-
   //create Product API
   static Future<void> createProduct(Product product) async {
   final apiUrl = 'https://api/seller/:sellerid/product';
@@ -188,8 +185,6 @@ class UserApi {
   }
   }
 
-
-
   //update Product AP
   static Future<void> updateProduct(Product product) async {
   final apiUrl = 'https://api/seller/:sellerid/product';
@@ -220,8 +215,6 @@ class UserApi {
   } catch (e) {
   }
   }
-
-
 
  //get products
   static Future<List<Product>> getProducts() async {

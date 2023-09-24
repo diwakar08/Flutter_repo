@@ -1,9 +1,6 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './services/User_api.dart';
-import './apis/orderModel.dart';
-import './apis/ProductModel.dart';
 import 'apis/Seller.dart';
 
 
@@ -48,6 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   initState() {
     fetchSeller();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

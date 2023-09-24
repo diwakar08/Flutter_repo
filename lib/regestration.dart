@@ -70,6 +70,9 @@ class _SellerRegistrationPageState extends State<Regest> {
       return null;
     }
   }
+  Future<void> postPersonalDetails() async {
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,7 +248,7 @@ class _SellerRegistrationPageState extends State<Regest> {
                 });
               },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent)
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.grey)
                 ),
                   child: const Text('Save my current location',
                   style: TextStyle(
@@ -271,9 +274,7 @@ class _SellerRegistrationPageState extends State<Regest> {
                     style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50))
                     ),
-                    onPressed: () {
-
-                    },
+                    onPressed: postPersonalDetails,
                     child: const Text('Register'),
                   ),
                 ),
