@@ -43,10 +43,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   initState() {
+    super.initState();
     fetchSeller();
   }
 
+  Future <void> fetchSeller() async {
+    seller = await UserApi.getSeller();
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +65,5 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Text("sellerName: ${seller.address?.city}")
     );
   }
-   Future <void> fetchSeller() async {
-     seller = await UserApi.getSeller();
 
-  }
 }
