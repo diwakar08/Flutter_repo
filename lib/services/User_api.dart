@@ -5,11 +5,60 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import '../apis/ProductModel.dart';
+import '../apis/Seller.dart';
 import '../apis/orderModel.dart';
 import 'package:http/http.dart' as http;
 import '../apis/sellerModel.dart';
 
 class UserApi {
+
+  //get seller data
+  static Future getSeller() async {
+
+
+
+    final json = {
+      "ownerName": "John Doe",
+      "password": "hashed_password_here",
+      "phone": "1234567890",
+      "businessType": "Retail",
+      "shopName": "John's Store",
+      "gstin": {
+        "gstinNo": "GSTIN123456",
+        "gstinImage": "gstin_image_url"
+      },
+      "photo": "seller_photo_url",
+      "address": {
+        "addressLine1": "123 Main Street",
+        "addressLine2": "Apt 456",
+        "city": "Example City",
+        "state": "Example State",
+        "pincode": "12345",
+        "location": "Latitude: 12.345, Longitude: 67.890"
+      },
+      "shopTimings": "Mon-Fri: 9:00 AM - 6:00 PM",
+      "panCard": {
+        "panNo": "ABCDE1234F",
+        "panImage": "pan_card_image_url"
+      },
+      "bankDetails": {
+        "accountNo": "1234567890",
+        "ifscCode": "IFSC12345",
+        "bankName": "Example Bank",
+        "branchName": "Example Branch",
+        "passbookImage": "bank_passbook_image_url"
+      },
+      "marginCharged": 10.5,
+      "shopCategory": "Electronics",
+      "createdAt": "2023-09-18T08:00:00Z",
+      "updatedAt": "2023-09-19T09:00:00Z"
+    };
+  Seller seller = Seller.fromJson(json);
+  return seller;
+
+  }
+
+
 
   //updateSeller
   static Future updateSeller(UpdateSeller updateSeller) async {

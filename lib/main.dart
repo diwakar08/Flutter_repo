@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './services/User_api.dart';
 import './apis/orderModel.dart';
 import './apis/ProductModel.dart';
+import 'apis/Seller.dart';
 
 
 
@@ -41,6 +42,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
+  late Seller seller;
+
+  @override
+  initState() {
+    fetchSeller();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -51,33 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
         title: const Text("flutter container"),
       ),
-      body: FutureBuilder<List<Product>>(
-        future: fetchOrders(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            final List<Product>? data = snapshot.data;
-
-            return ListView.builder(
-              itemCount: data?.length,
-              itemBuilder: (context, index) {
-                final prod = data?[index];
-                return ListTile(
-                  title: Text(prod!.productName),
-                );
-              },
-            );
-          }
-        },
-      )
+      body: Text("sellerName: ${seller.address?.city}")
     );
   }
-  Future<List<Product>> fetchOrders() async {
-    final data = await UserApi.getProducts();
+   Future <void> fetchSeller() async {
+     seller = await UserApi.getSeller();
 
-    return data;
   }
 }

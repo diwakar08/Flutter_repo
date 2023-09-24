@@ -44,7 +44,7 @@ class Order {
     required this.productList,
     required this.orderStatus,
     required this.totalPrice,
-     required this.payment,
+    required this.payment,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
