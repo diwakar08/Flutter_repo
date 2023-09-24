@@ -111,7 +111,7 @@ class Address {
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      addressOfShop: json['addressLine2'],
+      addressOfShop: json['addressOfShop'],
       city: json['city'],
       state: json['state'],
       pincode: json['pincode'],
