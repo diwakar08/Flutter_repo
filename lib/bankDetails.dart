@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:proj1/uploadImages.dart';
+
+import 'apis/sellerModel.dart';
 
 void main() {
   runApp(BankDetailsApp());
@@ -10,12 +13,15 @@ class BankDetailsApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bank Details Form',
       debugShowCheckedModeBanner: false,
-      home: BankDetailsForm(),
+      home: BankDetailsForm(seller: UpdateSeller(),),
     );
   }
 }
 
 class BankDetailsForm extends StatefulWidget {
+  late UpdateSeller seller;
+
+  BankDetailsForm({required this.seller});
   @override
   _BankDetailsFormState createState() => _BankDetailsFormState();
 }
@@ -26,6 +32,19 @@ class _BankDetailsFormState extends State<BankDetailsForm> {
   final TextEditingController panController = TextEditingController();
   final TextEditingController gstController = TextEditingController();
   final TextEditingController fssaiController = TextEditingController();
+  late UpdateSeller seller = widget.seller;
+  Future<void> postPersonalDetails() async {
+    seller.accountNo = bankAccountController.text;
+    seller.ifscCode = ifscController.text;
+    seller.panNo = panController.text;
+    seller.gstNumber = gstController.text;
+    seller.fssaiLicenseNumber = fssaiController.text;
+    print("printing cc no");
+    print(seller.accountNo);
+    print(seller.shopName);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => UploadImages(seller:seller)));
+  }
+
 
   Color customColor =  const Color(0xFFDEDC07);
   @override
@@ -37,7 +56,7 @@ class _BankDetailsFormState extends State<BankDetailsForm> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -170,6 +189,7 @@ class _BankDetailsFormState extends State<BankDetailsForm> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      postPersonalDetails();
                       // Process the form data and perform submission
                       // You can access the entered data using the controllers
                     },

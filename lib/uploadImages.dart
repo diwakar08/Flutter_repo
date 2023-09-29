@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:proj1/apis/sellerModel.dart';
 
 void main() {
-  runApp(BankDetailsApp());
+  runApp(BankDetailsApp1());
 }
 
-class BankDetailsApp extends StatelessWidget {
+class BankDetailsApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bank Details Form',
       debugShowCheckedModeBanner: false,
-      home: BankDetailsForm(),
+      home: UploadImages(seller: UpdateSeller(),),
     );
   }
 }
 
-class BankDetailsForm extends StatefulWidget {
+class UploadImages extends StatefulWidget {
+  late UpdateSeller seller ;
+  UploadImages({required this.seller});
   @override
   _BankDetailsFormState createState() => _BankDetailsFormState();
 }
 
-class _BankDetailsFormState extends State<BankDetailsForm> {
+class _BankDetailsFormState extends State<UploadImages> {
   final TextEditingController bankAccountController = TextEditingController();
   final TextEditingController ifscController = TextEditingController();
   final TextEditingController panController = TextEditingController();
@@ -37,7 +40,7 @@ class _BankDetailsFormState extends State<BankDetailsForm> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back),
         ),

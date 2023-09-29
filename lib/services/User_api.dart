@@ -10,9 +10,43 @@ import '../apis/sellerModel.dart';
 
 class UserApi {
 
-  static Future postSeller() async {
+  static Future mostSelling() async {
+
+  }static Future recentListed() async {
 
   }
+
+  static Future registerPhone(var phone, var otp) async {
+    final apiUrl = 'https://api.pehchankidukan.com/api/seller/register';
+
+    Map<String, dynamic> json = {
+      "phone":phone,
+      "otp":otp,
+    };
+    var uri = Uri.parse(apiUrl);
+    try {
+      final response = await http.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(json),
+      );
+
+      // if (response.statusCode == 201) {
+      // } else {
+      // }
+    } catch (e) {
+    }
+
+
+  }
+
+  static Future postSeller() async {
+    
+  }
+
+
 
   //get seller data
   static Future getSeller() async {
@@ -74,7 +108,7 @@ class UserApi {
   headers: <String, String>{
   'Content-Type': 'application/json',
   },
-  body: jsonEncode(updateSeller),
+  body: jsonEncode(json),
   );
 
   // if (response.statusCode == 201) {

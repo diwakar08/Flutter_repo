@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 import 'package:geolocator_apple/geolocator_apple.dart';
+import 'package:proj1/apis/sellerModel.dart';
+import 'package:proj1/sellerRegister.dart';
+
+import 'apis/Seller.dart';
+import 'bankDetails.dart';
 
 
 void main() {
@@ -71,7 +76,16 @@ class _SellerRegistrationPageState extends State<Regest> {
     }
   }
   Future<void> postPersonalDetails() async {
-
+    UpdateSeller seller = UpdateSeller(
+        shopName: shopNameController.text,
+        ownerName: ownerNameController.text,
+        phone: mobileNoController.text,
+        landlineNumber: landlineNoController.text,
+        addressOfShop: addressController.text,
+    );
+    print("seller shopname is printing wait.....");
+    print(seller.shopName);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BankDetailsForm(seller:seller)));
   }
   @override
   Widget build(BuildContext context) {
@@ -82,7 +96,7 @@ class _SellerRegistrationPageState extends State<Regest> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -270,14 +284,13 @@ class _SellerRegistrationPageState extends State<Regest> {
               Container(
                 width: double.infinity,
                 child: Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50))
-                    ),
-                    onPressed: postPersonalDetails,
-                    child: const Text('Register'),
+                  child: MaterialButton(onPressed: postPersonalDetails,
+                    child: Text('Save And Continue',style: TextStyle(color: Colors.white,fontSize: 15),)
+                    ,color: Colors.lightBlue.shade500,
+                    height: 40,
+                    minWidth: double.infinity,
                   ),
-                ),
+                  ),
               ),
 
             ],
